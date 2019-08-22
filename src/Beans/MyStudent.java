@@ -5,13 +5,21 @@
  */
 package Beans;
 
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+
 /**
  *
  * @author c3
  */
 public class MyStudent {
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException, IntrospectionException {
+        Class pd=Class.forName("Beans.Student.class");
+        BeanInfo be=Introspector.getBeanInfo(pd);
+        PropertyDescriptor[] propertyDescriptors = be.getPropertyDescriptors();
         
     }
     
