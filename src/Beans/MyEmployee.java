@@ -14,10 +14,9 @@ import java.beans.PropertyDescriptor;
  *
  * @author c3
  */
-public class MyStudent {
-    
+public class MyEmployee {
     public static void main(String[] args) throws ClassNotFoundException, IntrospectionException {
-        BeanInfo be=Introspector.getBeanInfo(Student.class);
+        BeanInfo be=Introspector.getBeanInfo(Employee.class);
         PropertyDescriptor[] propertyDescriptors = be.getPropertyDescriptors();
         
         System.out.println("Properties:");
@@ -27,5 +26,4 @@ public class MyStudent {
         }
         
     }
-    
 }
