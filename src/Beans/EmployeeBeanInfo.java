@@ -16,6 +16,7 @@ import java.beans.SimpleBeanInfo;
  */
 public class EmployeeBeanInfo extends SimpleBeanInfo {
     
+    @Override
     public PropertyDescriptor[] getPropertyDescriptors(){
         
         try {
