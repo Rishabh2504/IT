@@ -68,6 +68,14 @@ public class Employee implements Serializable{
         this.job = job;
     }
     
+    public void print(){
+        System.out.println("Name"+this.name);
+    }
     
+    public int add(int a, int b){
+        
+        int c=a+b;
+        return c;
+    }
 }
 

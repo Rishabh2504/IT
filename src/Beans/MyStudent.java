@@ -8,6 +8,7 @@ package Beans;
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
+import java.beans.MethodDescriptor;
 import java.beans.PropertyDescriptor;
 
 /**
@@ -19,13 +20,18 @@ public class MyStudent {
     public static void main(String[] args) throws ClassNotFoundException, IntrospectionException {
         BeanInfo be=Introspector.getBeanInfo(Student.class);
         PropertyDescriptor[] propertyDescriptors = be.getPropertyDescriptors();
+        MethodDescriptor[] methodDescriptors=be.getMethodDescriptors();
         
-        System.out.println("Properties:");
+        System.out.println("\nProperties:");
         for(PropertyDescriptor pd:propertyDescriptors)
         {   
             System.out.println("\t"+pd.getName());
         }
-        
+        System.out.println("\nMethods:");
+        for(MethodDescriptor md:methodDescriptors)
+        {   
+            System.out.println("\t"+md.getName());
+        }        
     }
     
 }

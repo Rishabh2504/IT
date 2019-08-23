@@ -66,4 +66,14 @@ public class Student implements Serializable {
     public void setCollege(String college) {
         this.college = college;
     }
+    
+    public void print(){
+        System.out.println("Name"+this.name);
+    }
+    
+    public int add(int a, int b){
+        
+        int c=a+b;
+        return c;
+    }
 }
