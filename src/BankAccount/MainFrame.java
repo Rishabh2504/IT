@@ -59,6 +59,11 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel2.setText("ACCOUNT NUMBER :");
 
         acn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        acn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                acnMouseClicked(evt);
+            }
+        });
         acn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 acnActionPerformed(evt);
@@ -261,7 +266,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_proceedActionPerformed
 
     private void acnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acnActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_acnActionPerformed
 
     private void amActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_amActionPerformed
@@ -342,6 +347,10 @@ public class MainFrame extends javax.swing.JFrame {
         else
             acc.setText("Total Account With Min Balance : "+Bank.count());
     }//GEN-LAST:event_mbaActionPerformed
+
+    private void acnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acnMouseClicked
+        acc.setText("");
+    }//GEN-LAST:event_acnMouseClicked
 
    
     /**

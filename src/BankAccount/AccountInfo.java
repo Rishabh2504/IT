@@ -71,6 +71,12 @@ public class AccountInfo extends javax.swing.JFrame {
             }
         });
 
+        tf.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tfMouseClicked(evt);
+            }
+        });
+
         tar.setColumns(20);
         tar.setRows(5);
         jScrollPane1.setViewportView(tar);
@@ -184,6 +190,10 @@ public class AccountInfo extends javax.swing.JFrame {
             }
             tf.setText("");
     }//GEN-LAST:event_wmActionPerformed
+
+    private void tfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfMouseClicked
+        ejl.setText("");
+    }//GEN-LAST:event_tfMouseClicked
                                       
                               
 
