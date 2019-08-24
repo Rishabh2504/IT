@@ -10,27 +10,27 @@ package BankAccount;
  * @author c3
  */
 public class BankAccount {
-    private static double balance;
-    private static int accountNumber;
+    private double balance;
+    private int acc_no;
     
-    public BankAccount(double b,int a) {
+    public BankAccount(int a,double b) {
+        acc_no=a;
         balance=b;
-        accountNumber=a;
     }
     
-    public static double getBalnce(){
+    public double getBalance(){
         return balance;
     }
     
-    public static int getAccount(){
-        return accountNumber;
+    public int getAccount(){
+        return acc_no;
     }
     
-    public static void deposit(double d){
+    public void deposit(double d){
         balance+=d;
     }
     
-    public static void withdraw(double w){
+    public void withdraw(double w){
         balance-=w;
     }    
 }

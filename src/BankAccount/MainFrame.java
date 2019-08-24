@@ -11,12 +11,12 @@ package BankAccount;
  */
 public class MainFrame extends javax.swing.JFrame {
     private int bt;
-    Bank ba;
+    Bank bk;
     public MainFrame() {
         initComponents();
         
         bt=0;
-        ba=new Bank();
+        bk=new Bank();
         acc.setVisible(false);
         acn.setVisible(false);
         am.setVisible(false);
@@ -76,7 +76,6 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel3.setText("AMOUNT :");
 
         am.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        am.setText("2000");
         am.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 amActionPerformed(evt);
@@ -84,6 +83,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         acc.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        acc.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         add.setText("AddAccount");
         add.addActionListener(new java.awt.event.ActionListener() {
@@ -163,8 +163,8 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGap(423, 423, 423)
                         .addComponent(proceed, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(260, 260, 260)
-                        .addComponent(acc, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(286, 286, 286)
+                        .addComponent(acc, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -190,9 +190,9 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(am, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(proceed, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addComponent(acc, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addComponent(acc, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
         pack();
@@ -200,17 +200,62 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void proceedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proceedActionPerformed
         if(bt==1){
-        ba.addAccount(Double.parseDouble(am.getText()),Integer.parseInt(acn.getText()));
+        boolean flag=true;
+        int a=Integer.parseInt(acn.getText());
+        for(int i=0;i<Bank.ba.size();i++){
+            if (a == Bank.ba.get(i).getAccount())
+            {
+                acc.setVisible(true);
+                acc.setText("Account Already Present");
+                flag=false;
+                break;
+            }
+        }
+        if(flag==true){
+        bk.addAccount(a,Double.parseDouble(am.getText()));
         acc.setVisible(true);
         acc.setText("Account Created");
+        }
         acn.setText("");
+        am.setText("");
         }
         else if(bt==2){            
         int a=Integer.parseInt(acn.getText());
-        double b=ba.getInfo(a);
-        AccountInfo af=new AccountInfo(a,b,this);
-        this.setVisible(false);
-        af.setVisible(true);
+        boolean flag=true;
+        for(int i=0;i<Bank.ba.size();i++)
+        {
+            if (a == Bank.ba.get(i).getAccount())
+            { 
+                AccountInfo af=new AccountInfo(Bank.ba.get(i),this);
+                this.setVisible(false);
+                af.setVisible(true);
+                flag=false;
+                break;
+            }
+        }
+        if(flag==true){
+            acc.setVisible(true);
+            acc.setText("Account Not Present");
+        }
+        acn.setText("");
+        }
+        else if(bt==3){
+        int a=Integer.parseInt(acn.getText());
+        boolean flag=true;
+        for(int i=0;i<Bank.ba.size();i++)
+        {
+            if (a == Bank.ba.get(i).getAccount())
+            { 
+                acc.setVisible(true);
+                acc.setText("Account Balance : "+Bank.getInfo(a));                    
+                flag=false;
+                break;
+            }
+        }
+        if(flag==true){
+            acc.setVisible(true);
+            acc.setText("Account Not Present");
+        }
         acn.setText("");
         }
     }//GEN-LAST:event_proceedActionPerformed
@@ -256,35 +301,46 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_aiActionPerformed
 
     private void tbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbActionPerformed
-        acc.setVisible(false);
+        acc.setVisible(true);
         acn.setVisible(false);
         am.setVisible(false);
         jLabel2.setVisible(false);
         jLabel3.setVisible(false);
         proceed.setVisible(false);
-        
-        bt=4; 
+        if(Bank.ba.size()==0){
+            acc.setText("No Account Present In The Bank");
+        }
+        else
+            acc.setText("Total Balance : "+Bank.getTotal());
     }//GEN-LAST:event_tbActionPerformed
 
     private void mmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmActionPerformed
-        acc.setVisible(false);
+        acc.setVisible(true);
         acn.setVisible(false);
         am.setVisible(false);
         jLabel2.setVisible(false);
         jLabel3.setVisible(false);
         proceed.setVisible(false);
         
-        bt=5;
+        if(Bank.ba.size()==0){
+            acc.setText("No Account Present In The Bank");
+        }
+        else
+            acc.setText("Minimum Balance Account : "+Bank.getMin()+"   Maximum Balance Account : "+Bank.getMax());
     }//GEN-LAST:event_mmActionPerformed
 
     private void mbaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mbaActionPerformed
-        acc.setVisible(false);
+        acc.setVisible(true);
         acn.setVisible(false);
         am.setVisible(false);
         jLabel2.setVisible(false);
         jLabel3.setVisible(false);
         proceed.setVisible(false);
-        bt=6;
+        if(Bank.ba.size()==0){
+            acc.setText("No Account Present In The Bank");
+        }
+        else
+            acc.setText("Total Account With Min Balance : "+Bank.count());
     }//GEN-LAST:event_mbaActionPerformed
 
    

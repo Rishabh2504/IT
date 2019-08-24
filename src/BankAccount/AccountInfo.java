@@ -12,15 +12,17 @@ import javax.swing.JFrame;
  * @author c3
  */
 public class AccountInfo extends javax.swing.JFrame {
-
+    
+    BankAccount b;
     private int sr;
     private JFrame previous;
-    public AccountInfo(int a,double b,JFrame p) {
+    public AccountInfo(BankAccount a,JFrame p) {
         initComponents();
+        b=a;
         tar.setText("Sr.no\t\tParticulars\t\tAmount\t\tBalance");
         sr=1;
-        Balan.setText(""+b);
-        ac.setText(""+a);
+        Balan.setText(""+a.getBalance());
+        ac.setText(""+a.getAccount());
         previous=p;
         
     }
@@ -63,12 +65,17 @@ public class AccountInfo extends javax.swing.JFrame {
 
         wm.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         wm.setText("WITHDRAW");
-
-        tf.setText("0.0");
+        wm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                wmActionPerformed(evt);
+            }
+        });
 
         tar.setColumns(20);
         tar.setRows(5);
         jScrollPane1.setViewportView(tar);
+
+        ejl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         Balan.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Balan.setText("BALANCE : 0.0");
@@ -90,21 +97,6 @@ public class AccountInfo extends javax.swing.JFrame {
                 .addComponent(wm)
                 .addGap(180, 180, 180))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(374, 374, 374)
-                        .addComponent(tf, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(257, 257, 257)
-                        .addComponent(ejl, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(276, 276, 276)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(146, 146, 146)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(140, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addComponent(Balan, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -112,6 +104,20 @@ public class AccountInfo extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(ac, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(80, 80, 80))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(374, 374, 374)
+                        .addComponent(tf, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(146, 146, 146)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(276, 276, 276)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(ejl, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(140, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,15 +129,15 @@ public class AccountInfo extends javax.swing.JFrame {
                     .addComponent(Balan, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ac, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
                 .addComponent(tf, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(wm, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ejl, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addGap(18, 18, 18)
+                .addComponent(ejl, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -143,40 +149,42 @@ public class AccountInfo extends javax.swing.JFrame {
         double dep ;
         dep = Double.parseDouble(tf.getText());
         if(dep>0){
-            BankAccount.deposit(dep);
-            Balan.setText("BALANCE : "+BankAccount.getBalnce());
-            tar.append("\n"+sr+"\t\tCredited"+"\t\t"+dep+"\t\t"+BankAccount.getBalnce());
+            b.deposit(dep);
+            Balan.setText("BALANCE : "+b.getBalance());
+            tar.append("\n"+sr+"\t\tCredited"+"\t\t"+dep+"\t\t"+b.getBalance());
             sr+=1;
         }
         else
             ejl.setText("Invlid Amount!");
         
-        tf.setText("0.00");
+        tf.setText("");
     }//GEN-LAST:event_dmActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         previous.setVisible(true);
     }//GEN-LAST:event_formWindowClosing
 
-    private void wmActionPerformed(java.awt.event.ActionEvent evt) {                                   
+    private void wmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wmActionPerformed
         double wd ;
         wd = Double.parseDouble(tf.getText());
-        double bal=BankAccount.getBalnce();
+        double bal=b.getBalance();
             if(wd<=0)
             {
-                ejl.setText("\n Transaction Failed ");
+                ejl.setText("Transaction Failed");
             }
-            else if(wd<=bal)
+            else if(wd>bal)
             {    
-                BankAccount.withdraw(wd);
-                Balan.setText("Balance is : "+bal);
-                tar.append("\n"+sr+"\t\tDebited"+"\t\t"+wd+"\t\t"+bal);
+                ejl.setText("Transaction Failed (Insufficient Balance)");
+            }
+            else{
+                b.withdraw(wd);
+                Balan.setText("Balance is : "+b.getBalance());
+                tar.append("\n"+sr+"\t\tDebited"+"\t\t"+wd+"\t\t"+b.getBalance());
                 sr+=1;
             }
-            else
-                ejl.setText("\n Transaction Failed (Balance insufficient )");
-            tf.setText("0.00");
-        }                                      
+            tf.setText("");
+    }//GEN-LAST:event_wmActionPerformed
+                                      
                               
 
     private void tfActionPerformed(java.awt.event.ActionEvent evt) {                                   
