@@ -162,8 +162,11 @@ public class AccountInfo extends javax.swing.JFrame {
         double wd ;
         wd = Double.parseDouble(tf.getText());
         double bal=BankAccount.getBalnce();
-        
-            if(wd<=bal)
+            if(wd<=0)
+            {
+                ejl.setText("\n Transaction Failed ");
+            }
+            else if(wd<=bal)
             {    
                 BankAccount.withdraw(wd);
                 Balan.setText("Balance is : "+bal);
