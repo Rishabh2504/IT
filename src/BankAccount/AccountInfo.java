@@ -12,22 +12,21 @@ import javax.swing.JFrame;
  * @author c3
  */
 public class AccountInfo extends javax.swing.JFrame {
-
+    
+    BankAccount b;
     private int sr;
     private JFrame previous;
-    public AccountInfo(int a,double b,JFrame p) {
+    public AccountInfo(BankAccount a,JFrame p) {
         initComponents();
+        b=a;
         tar.setText("Sr.no\t\tParticulars\t\tAmount\t\tBalance");
         sr=1;
-        Balan.setText(""+b);
-        ac.setText(""+a);
+        Balan.setText(""+a.getBalance());
+        ac.setText(""+a.getAccount());
         previous=p;
         
     }
 
-    AccountInfo() {
-        
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -66,12 +65,23 @@ public class AccountInfo extends javax.swing.JFrame {
 
         wm.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         wm.setText("WITHDRAW");
+        wm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                wmActionPerformed(evt);
+            }
+        });
 
-        tf.setText("0.0");
+        tf.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tfMouseClicked(evt);
+            }
+        });
 
         tar.setColumns(20);
         tar.setRows(5);
         jScrollPane1.setViewportView(tar);
+
+        ejl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         Balan.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Balan.setText("BALANCE : 0.0");
@@ -93,21 +103,6 @@ public class AccountInfo extends javax.swing.JFrame {
                 .addComponent(wm)
                 .addGap(180, 180, 180))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(374, 374, 374)
-                        .addComponent(tf, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(257, 257, 257)
-                        .addComponent(ejl, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(276, 276, 276)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(146, 146, 146)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(140, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addComponent(Balan, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -115,6 +110,20 @@ public class AccountInfo extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(ac, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(80, 80, 80))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(374, 374, 374)
+                        .addComponent(tf, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(146, 146, 146)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(276, 276, 276)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(ejl, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(140, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,15 +135,15 @@ public class AccountInfo extends javax.swing.JFrame {
                     .addComponent(Balan, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ac, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
                 .addComponent(tf, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(wm, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ejl, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addGap(18, 18, 18)
+                .addComponent(ejl, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -146,37 +155,46 @@ public class AccountInfo extends javax.swing.JFrame {
         double dep ;
         dep = Double.parseDouble(tf.getText());
         if(dep>0){
-            BankAccount.deposit(dep);
-            Balan.setText("BALANCE : "+BankAccount.getBalnce());
-            tar.append("\n"+sr+"\t\tCredited"+"\t\t"+dep+"\t\t"+BankAccount.getBalnce());
+            b.deposit(dep);
+            Balan.setText("BALANCE : "+b.getBalance());
+            tar.append("\n"+sr+"\t\tCredited"+"\t\t"+dep+"\t\t"+b.getBalance());
             sr+=1;
         }
         else
             ejl.setText("Invlid Amount!");
         
-        tf.setText("0.00");
+        tf.setText("");
     }//GEN-LAST:event_dmActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         previous.setVisible(true);
     }//GEN-LAST:event_formWindowClosing
 
-    private void wmActionPerformed(java.awt.event.ActionEvent evt) {                                   
+    private void wmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wmActionPerformed
         double wd ;
         wd = Double.parseDouble(tf.getText());
-        double bal=BankAccount.getBalnce();
-        
-            if(wd<=bal)
+        double bal=b.getBalance();
+            if(wd<=0)
+            {
+                ejl.setText("Transaction Failed");
+            }
+            else if(wd>bal)
             {    
-                BankAccount.withdraw(wd);
-                Balan.setText("Balance is : "+bal);
-                tar.append("\n"+sr+"\t\tDebited"+"\t\t"+wd+"\t\t"+bal);
+                ejl.setText("Transaction Failed (Insufficient Balance)");
+            }
+            else{
+                b.withdraw(wd);
+                Balan.setText("Balance is : "+b.getBalance());
+                tar.append("\n"+sr+"\t\tDebited"+"\t\t"+wd+"\t\t"+b.getBalance());
                 sr+=1;
             }
-            else
-                ejl.setText("\n Transaction Failed (Balance insufficient )");
-            tf.setText("0.00");
-        }                                      
+            tf.setText("");
+    }//GEN-LAST:event_wmActionPerformed
+
+    private void tfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfMouseClicked
+        ejl.setText("");
+    }//GEN-LAST:event_tfMouseClicked
+                                      
                               
 
     private void tfActionPerformed(java.awt.event.ActionEvent evt) {                                   
@@ -185,39 +203,7 @@ public class AccountInfo extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BankAccount.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BankAccount.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BankAccount.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BankAccount.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new AccountInfo().setVisible(true);
-            }
-        });
-    }
 
 
 

@@ -13,14 +13,14 @@ import java.util.ArrayList;
  */
 public class Bank {
     
-    private static ArrayList<BankAccount> ba;
+    static ArrayList<BankAccount> ba;
     
     public Bank (){
-        ba=new ArrayList<BankAccount>();
+        ba=new ArrayList<>();
     }
     
-    public static void addAccount(double b,int a){
-        BankAccount ab=new BankAccount(b,a);
+    public static void addAccount(int acc,double bal){
+        BankAccount ab=new BankAccount(acc,bal);
         ba.add(ab);
     }
     
@@ -28,19 +28,19 @@ public class Bank {
         double total=0;
         
         for(int i=0;i<ba.size();i++)
-           total+=ba.get(i).getBalnce();
+           total+=ba.get(i).getBalance();
         
         return total;
         
     }
     
     public static int  getMin(){
-        double min=ba.get(0).getBalnce();
+        double min=ba.get(0).getBalance();
         int ac=ba.get(0).getAccount();
-        
+
         for(int i=1;i<ba.size();i++){
-            if(min>ba.get(i).getBalnce()){
-                min=ba.get(i).getBalnce();
+            if(min>ba.get(i).getBalance()){
+                min=ba.get(i).getBalance();
                 ac=ba.get(i).getAccount();
             }
         }
@@ -48,12 +48,12 @@ public class Bank {
     }
     
     public static int  getMax(){
-        double max=ba.get(0).getBalnce();
+        double max=ba.get(0).getBalance();
         int ac=ba.get(0).getAccount();
         
         for(int i=1;i<ba.size();i++){
-            if(max<ba.get(i).getBalnce()){
-                max=ba.get(i).getBalnce();
+            if(max<ba.get(i).getBalance()){
+                max=ba.get(i).getBalance();
                 ac=ba.get(i).getAccount();
             }
         }
@@ -65,7 +65,7 @@ public class Bank {
 
         for(int i=0;i<ba.size();i++){
             if(a==ba.get(i).getAccount())
-                return ba.get(i).getBalnce();
+                return ba.get(i).getBalance();
         }
         return 0;
         
@@ -75,7 +75,7 @@ public class Bank {
         int c=0;
         
         for(int i=0;i<ba.size();i++){
-            if(ba.get(i).getBalnce()>=2000)
+            if(ba.get(i).getBalance()>=2000)
                 c++;
                 
         }
